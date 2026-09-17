@@ -25,8 +25,29 @@ jobs:
 
           curl -s \
             -H "x-apisports-key: $API_KEY" \
-            "https://v3.football.api-sports.io/fixtures?from=$TODAY&to=$TOMORROW" \
-            > upcoming.json
+            "https://v3.football.api-sports.io/fixtures?date=$TODAY" \
+            > today.json
+
+          curl -s \
+            -H "x-apisports-key: $API_KEY" \
+            "https://v3.football.api-sports.io/fixtures?date=$TOMORROW" \
+            > tomorrow.json
+
+          jq -s '
+            {
+              get: "fixtures",
+              parameters: {
+                dates: [.[0].parameters.date, .[1].parameters.date]
+              },
+              errors: {},
+              results: ((.[0].response // []) + (.[1].response // []) | length),
+              paging: {
+                current: 1,
+                total: 1
+              },
+              response: ((.[0].response // []) + (.[1].response // []))
+            }
+          ' today.json tomorrow.json > upcoming.json
 
       - name: Save data
         run: |
