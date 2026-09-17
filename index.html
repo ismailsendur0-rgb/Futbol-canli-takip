@@ -1,1 +1,114 @@
-<h1>Futbol Takip</h1>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Futbol Takip</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 25px auto;
+      padding: 0 15px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .match {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+    }
+
+    .score {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .live {
+      color: #16a34a;
+      font-weight: bold;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>⚽ Futbol Takip</h1>
+    <p>Canlı maçları takip et</p>
+  </header>
+
+  <div class="container">
+
+    <div class="card">
+      <h2>🔴 Canlı Maçlar</h2>
+
+      <div class="match">
+        <span>Galatasaray</span>
+        <span class="score">2 - 1</span>
+        <span>Fenerbahçe</span>
+      </div>
+
+      <p class="live">● CANLI</p>
+    </div>
+
+    <div class="card">
+      <h2>📅 Yaklaşan Maçlar</h2>
+      <p>Beşiktaş - Trabzonspor</p>
+      <p>20:00</p>
+    </div>
+
+    <div class="card">
+      <h2>🏆 Puan Durumu</h2>
+      <p>1. Galatasaray</p>
+      <p>2. Fenerbahçe</p>
+      <p>3. Beşiktaş</p>
+      <p>4. Trabzonspor</p>
+    </div>
+
+    <div class="card">
+      <button onclick="alert('Futbol Takip!')">
+        🔔 Bildirimleri Aç
+      </button>
+    </div>
+
+  </div>
+
+</body>
+</html>
