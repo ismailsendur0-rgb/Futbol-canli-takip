@@ -1,114 +1,274 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Futbol Takip</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Futbol Takip</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      color: #222;
-    }
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #222;
+}
 
-    header {
-      background: #111827;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
+header {
+    background: #111827;
+    color: white;
+    padding: 22px 15px;
+    text-align: center;
+}
 
-    header h1 {
-      margin: 0;
-    }
+header h1 {
+    margin: 0;
+}
 
-    .container {
-      max-width: 700px;
-      margin: 25px auto;
-      padding: 0 15px;
-    }
+.container {
+    max-width: 700px;
+    margin: 25px auto;
+    padding: 0 15px;
+}
 
-    .card {
-      background: white;
-      padding: 20px;
-      margin-bottom: 15px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
+.card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 18px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
 
-    .match {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 18px;
-    }
+.card h2 {
+    margin-top: 0;
+}
 
-    .score {
-      font-size: 24px;
-      font-weight: bold;
-    }
+.match {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
+}
 
-    .live {
-      color: #16a34a;
-      font-weight: bold;
-    }
+.match:last-child {
+    border-bottom: none;
+}
 
-    button {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      background: #2563eb;
-      color: white;
-      font-size: 16px;
-    }
-  </style>
+.team {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 40%;
+}
+
+.team img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.home {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.away {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.score {
+    font-size: 22px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.live {
+    display: inline-block;
+    background: #e53935;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.minute {
+    font-size: 13px;
+    color: #e53935;
+    text-align: center;
+    margin-top: 4px;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+.empty {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+.refresh {
+    text-align: center;
+    font-size: 13px;
+    color: #777;
+    margin-top: 20px;
+}
+</style>
 </head>
 
 <body>
 
-  <header>
+<header>
     <h1>⚽ Futbol Takip</h1>
     <p>Canlı maçları takip et</p>
-  </header>
+</header>
 
-  <div class="container">
+<div class="container">
 
     <div class="card">
-      <h2>🔴 Canlı Maçlar</h2>
-
-      <div class="match">
-        <span>Galatasaray</span>
-        <span class="score">2 - 1</span>
-        <span>Fenerbahçe</span>
-      </div>
-
-      <p class="live">● CANLI</p>
+        <h2>🔴 Canlı Maçlar</h2>
+        <div id="liveMatches" class="loading">
+            Canlı maçlar yükleniyor...
+        </div>
     </div>
 
     <div class="card">
-      <h2>📅 Yaklaşan Maçlar</h2>
-      <p>Beşiktaş - Trabzonspor</p>
-      <p>20:00</p>
+        <h2>📅 Yaklaşan Maçlar</h2>
+        <div class="match">
+            <div class="team home">
+                Beşiktaş
+            </div>
+            <div class="score">20:00</div>
+            <div class="team away">
+                Trabzonspor
+            </div>
+        </div>
     </div>
 
     <div class="card">
-      <h2>🏆 Puan Durumu</h2>
-      <p>1. Galatasaray</p>
-      <p>2. Fenerbahçe</p>
-      <p>3. Beşiktaş</p>
-      <p>4. Trabzonspor</p>
+        <h2>🏆 Puan Durumu</h2>
+        <p>Güncel puan durumu yakında burada gösterilecek.</p>
     </div>
 
-    <div class="card">
-      <button onclick="alert('Futbol Takip!')">
-        🔔 Bildirimleri Aç
-      </button>
+    <div class="refresh">
+        🔄 Canlı veriler otomatik olarak yenileniyor.
     </div>
 
-  </div>
+</div>
+
+<script>
+
+async function loadLiveMatches() {
+
+    const box = document.getElementById("liveMatches");
+
+    try {
+
+        const response = await fetch("live.json?t=" + Date.now());
+
+        if (!response.ok) {
+            throw new Error("Veri alınamadı");
+        }
+
+        const data = await response.json();
+
+        if (!data.response || data.response.length === 0) {
+            box.innerHTML = `
+                <div class="empty">
+                    Şu anda canlı maç bulunmuyor ⚽
+                </div>
+            `;
+            return;
+        }
+
+        box.innerHTML = "";
+
+        data.response.forEach(match => {
+
+            const home = match.teams?.home;
+            const away = match.teams?.away;
+            const goals = match.goals;
+            const status = match.fixture?.status;
+
+            const homeName = home?.name || "Ev Sahibi";
+            const awayName = away?.name || "Deplasman";
+
+            const homeLogo = home?.logo || "";
+            const awayLogo = away?.logo || "";
+
+            const homeScore =
+                goals?.home !== null && goals?.home !== undefined
+                ? goals.home
+                : 0;
+
+            const awayScore =
+                goals?.away !== null && goals?.away !== undefined
+                ? goals.away
+                : 0;
+
+            let minute = "";
+
+            if (status?.elapsed !== null && status?.elapsed !== undefined) {
+                minute = status.elapsed + "'";
+            }
+
+            const div = document.createElement("div");
+
+            div.className = "match";
+
+            div.innerHTML = `
+                <div class="team home">
+                    <span>${homeName}</span>
+                    ${homeLogo ? `<img src="${homeLogo}" alt="">` : ""}
+                </div>
+
+                <div>
+                    <div class="score">
+                        ${homeScore} - ${awayScore}
+                    </div>
+
+                    <div class="live">
+                        ● CANLI
+                    </div>
+
+                    <div class="minute">
+                        ${minute}
+                    </div>
+                </div>
+
+                <div class="team away">
+                    ${awayLogo ? `<img src="${awayLogo}" alt="">` : ""}
+                    <span>${awayName}</span>
+                </div>
+            `;
+
+            box.appendChild(div);
+        });
+
+    } catch (error) {
+
+        box.innerHTML = `
+            <div class="empty">
+                ⚠️ Canlı maç verisi alınamadı.
+            </div>
+        `;
+
+        console.log(error);
+    }
+}
+
+loadLiveMatches();
+
+/* Sayfayı 60 saniyede bir yenile */
+setInterval(loadLiveMatches, 60000);
+
+</script>
 
 </body>
 </html>
