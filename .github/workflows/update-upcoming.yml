@@ -1,0 +1,37 @@
+name: Update Upcoming Matches
+
+on:
+  schedule:
+    - cron: "15 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get upcoming matches
+        env:
+          API_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+        run: |
+          TODAY=$(date -u +%Y-%m-%d)
+          TOMORROW=$(date -u -d "tomorrow" +%Y-%m-%d)
+
+          curl -s \
+            -H "x-apisports-key: $API_KEY" \
+            "https://v3.football.api-sports.io/fixtures?from=$TODAY&to=$TOMORROW" \
+            > upcoming.json
+
+      - name: Save data
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add upcoming.json
+          git diff --cached --quiet || git commit -m "Update upcoming matches"
+          git push
