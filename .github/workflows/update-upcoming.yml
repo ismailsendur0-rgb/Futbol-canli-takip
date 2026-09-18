@@ -1,3 +1,4 @@
+```yaml
 name: Update Upcoming Matches
 
 on:
@@ -20,15 +21,22 @@ jobs:
         env:
           API_KEY: ${{ secrets.API_FOOTBALL_KEY }}
         run: |
+          set -e
+
           TODAY=$(date -u +%Y-%m-%d)
           TOMORROW=$(date -u -d "tomorrow" +%Y-%m-%d)
 
-          curl -s \
+          if [ -z "$API_KEY" ]; then
+            echo "API_FOOTBALL_KEY secret bulunamadı."
+            exit 1
+          fi
+
+          curl -f -sS \
             -H "x-apisports-key: $API_KEY" \
             "https://v3.football.api-sports.io/fixtures?date=$TODAY" \
             > today.json
 
-          curl -s \
+          curl -f -sS \
             -H "x-apisports-key: $API_KEY" \
             "https://v3.football.api-sports.io/fixtures?date=$TOMORROW" \
             > tomorrow.json
@@ -53,6 +61,13 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+
           git add upcoming.json
-          git diff --cached --quiet || git commit -m "Update upcoming matches"
-          git push
+
+          if git diff --cached --quiet; then
+            echo "Değişiklik yok."
+          else
+            git commit -m "Update upcoming matches"
+            git push
+          fi
+```
